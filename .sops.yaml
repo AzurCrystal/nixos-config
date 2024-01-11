@@ -1,0 +1,39 @@
+keys:
+  - &azurcrystal_pgp AC0D2AF17C37D2CD794292260E6FD23B84E08D57
+  - &azurcrystal_age age10j2wx70mg94r7wwtwx7lgmllhewap2cs5c7w4rj9fh9zqkr4rp9s9k5n7f
+  - &lxc-kabu age1rz4ygkquevykurq6rlf25mymxcpg688x840cqqyzewqcaakrnf8schj3nw
+  - &wsl-main age1sczh8f408gd03v0avz8at3a3772yn3xjsu2ca68w02vqhfkv0f4qslcwwh
+  - &kvm-aliyun age15n25artefatpem8cr3vrujh5lv85dxfly5829w8gmfamymxl83fszqxgxs
+
+creation_rules:
+  - path_regex: ^modules/base/settings/sops/\.secrets\.yaml$
+    key_groups:
+      - age:
+          - *azurcrystal_age
+          - *wsl-main
+          - *lxc-kabu
+          - *kvm-aliyun
+        pgp:
+          - *azurcrystal_pgp
+    
+  - path_regex: ^profiles/laptops/ThinkPadX270/\.secrets\.yaml$
+    key_groups:
+      - age:
+          - *azurcrystal_age
+        pgp:
+          - *azurcrystal_pgp
+
+  - path_regex: ^profiles/hosts/wsl-main/\.secrets\.yaml$
+    key_groups:
+      - age:
+          - *wsl-main
+
+  - path_regex: ^profiles/hosts/lxc-kabu/\.secrets\.yaml$
+    key_groups:
+      - age:
+          - *lxc-kabu
+
+  - path_regex: ^profiles/hosts/kvm-aliyun/\.secrets\.yaml$
+    key_groups:
+      - age:
+          - *kvm-aliyun

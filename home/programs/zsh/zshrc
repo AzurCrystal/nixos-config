@@ -1,0 +1,182 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+#module_path+=( "$HOME/.local/share/zinit/module/Src" )
+#zmodload zdharma_continuum/zinit
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+zinit ice depth=1 
+zinit light romkatv/powerlevel10k
+
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+ blockf \
+    zchee/zsh-completions \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+
+
+zinit wait'1' lucid as="completion" for \
+  OMZ::plugins/docker/completions/_docker \
+  OMZ::plugins/docker-compose/_docker-compose 
+
+# Defualt LS_COLORS dir is too dark to see
+# 256-colors
+
+zinit pack for ls_colors
+zinit lucid reset \
+ atclone"[[ -z ${commands[dircolors]} ]] && local P=g
+    \${P}sed -i '/DIR/c\DIR 38;5;39;1' LS_COLORS; \
+    \${P}dircolors -b LS_COLORS > clrs.zsh" \
+ atpull'%atclone' pick"clrs.zsh" nocompile'!' for \
+    trapd00r/LS_COLORS
+
+
+zinit light-mode for \
+  zsh-users/zsh-history-substring-search \
+  Aloxaf/fzf-tab
+
+zinit ice as "program" pick "init.zsh" wait '!2' lucid
+zinit light "b4b4r07/enhancd"
+
+
+zinit wait lucid for \
+  OMZ::lib/key-bindings.zsh \
+  OMZ::plugins/sudo/sudo.plugin.zsh \
+  OMZ::lib/history.zsh \
+  OMZ::lib/clipboard.zsh 
+
+zinit wait'1' lucid for \
+  OMZ::plugins/jsontools/jsontools.plugin.zsh \
+  OMZ::plugins/cp/cp.plugin.zsh \
+  OMZ::plugins/gitignore/gitignore.plugin.zsh
+# OMZ::plugins/command-not-found/command-not-found.plugin.zsh \
+
+zinit svn wait'1' lucid for \
+  OMZ::plugins/extract \
+  OMZ::plugins/colored-man-pages
+
+zinit svn wait'2' lucid for \
+  OMZ::plugins/emoji
+
+zinit has'zoxide' wait lucid for \
+  z-shell/zsh-zoxide
+
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':completion:*' use-cache true
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+  '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+	'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
+	'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+	'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
+zstyle ":completion:*:commands" rehash 1
+
+ttyctl -f
+
+DIRSTACKSIZE=16
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_MINUS
+
+export EDITOR=vim
+alias vim=vim
+
+alias top=btm
+alias ec="$EDITOR $HOME/.zshrc"
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -iv"
+alias mkdir="mkdir -pv"
+alias ln="ln -v"
+alias ls="ls -h --color --group-directories-first --classify"
+alias ll="ls -l"
+alias lla="ll -a"
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+alias ip="ip --color=auto"
+alias cat='bat --paging=never'
+alias pping='prettyping'
+alias yay='yay --color=always'
+
+alias rimesync='qdbus org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.SetConfig "fcitx://config/addon/rime/sync" ""'
+alias nwreset='systemctl restart sing-box smartdns dnsmasq'
+
+export GOPATH=$HOME/.local/share/go
+export PAGER="/usr/bin/most -s"
+export GPG_TTY=$(tty)
+umask 022
+
+alias grep='grep --color=auto'
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down 
+
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+export LANG=en_GB.UTF-8
+export N_PREFIX=$HOME/.local/share/nodejs
+export PATH=$HOME/.config/emacs/bin:$HOME/.local/bin:$HOME/.local/share/go/bin:$N_PREFIX/bin:$PATH
+export WINEPREFIX=$HOME/.local/share/wine-64
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
+
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

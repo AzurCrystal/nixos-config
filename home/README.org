@@ -1,0 +1,4 @@
+* home
+
+The base [[https://mipmip.giuhub.io/home-manager-option][home-manager]] configuration for my devices.
+

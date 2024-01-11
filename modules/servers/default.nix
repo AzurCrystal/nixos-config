@@ -1,0 +1,9 @@
+{ ... }:
+
+{
+  imports = [
+    ./programs
+    ./services
+    ./settings
+  ];
+}

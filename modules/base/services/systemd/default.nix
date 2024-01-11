@@ -1,0 +1,8 @@
+{ ... }:
+
+{
+  imports = [
+    ./system
+    ./user
+  ];
+}
