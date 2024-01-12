@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ ... }:
 
 {
 
@@ -16,6 +16,11 @@
     resolved = {
       enable = true;
     };
+  };
+
+  networking = {
+    useDHCP = false;
+    useNetworkd = true;
   };
 
   networking = {

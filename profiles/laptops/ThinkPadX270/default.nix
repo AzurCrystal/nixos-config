@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   system.stateVersion = "23.11"; # Did you read the comment?
@@ -41,6 +41,6 @@
     };
   };
 
-  users.users.azurcrystal.shell = pkgs.zsh;
+  users.users.azurcrystal.shell = lib.mkForce pkgs.zsh;
   security.pam.u2f.authFile = config.sops.secrets."u2f_keys".path; 
 }

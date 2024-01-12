@@ -5,6 +5,7 @@ let
   lxc-kabu_ipAddr = config.sops.placeholder."hosts/lxc-kabu/ipAddr";
   lxc-kabu_ipPort = config.sops.placeholder."hosts/lxc-kabu/ipPort";
   kvm-aliyun_ipAddr = config.sops.placeholder."hosts/kvm-aliyun/ipAddr";
+  kvm-us-1_ipAddr = config.sops.placeholder."hosts/kvm-us-1/ipAddr";
 in
 {
   config.sops.templates."ssh_config" = {
@@ -19,6 +20,10 @@ in
 
       Host kvm-aliyun
            HostName ${kvm-aliyun_ipAddr}
+           Port     22
+
+      Host kvm-us-1
+           Hostname ${kvm-us-1_ipAddr}
            Port     22
     '';
     mode = "0444";

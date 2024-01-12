@@ -10,6 +10,7 @@
       "hosts/lxc-kabu/ipAddr" = { };
       "hosts/lxc-kabu/ipPort" = { };
       "hosts/kvm-aliyun/ipAddr" = { };
+      "hosts/kvm-us-1/ipAddr" = { };
     };
   };
 }

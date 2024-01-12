@@ -102,7 +102,7 @@
             ./modules/servers
           ];
         };
-        "kvm-aliyun" = {name,nodes,...}:{
+        "kvm-aliyun" = { name, nodes, ... }: {
           deployment = {
             tags = [ "server" "china" ];
             targetHost = "kvm-aliyun";
@@ -111,6 +111,19 @@
           imports = [
             sops-nix.nixosModules.sops
             ./profiles/hosts/kvm-aliyun
+            ./modules/users
+            ./modules/servers
+          ];
+        };
+        "kvm-us-1" = { name, nodes, ... }: {
+          deployment = {
+            tags = [ "server" "us" ];
+            targetHost = "kvm-us-1";
+            targetUser = "azurcrystal";
+          };
+          imports = [
+            sops-nix.nixosModules.sops
+            ./profiles/hosts/kvm-us-1
             ./modules/users
             ./modules/servers
           ];

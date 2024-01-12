@@ -4,6 +4,7 @@ keys:
   - &lxc-kabu age1rz4ygkquevykurq6rlf25mymxcpg688x840cqqyzewqcaakrnf8schj3nw
   - &wsl-main age1sczh8f408gd03v0avz8at3a3772yn3xjsu2ca68w02vqhfkv0f4qslcwwh
   - &kvm-aliyun age15n25artefatpem8cr3vrujh5lv85dxfly5829w8gmfamymxl83fszqxgxs
+  - &kvm-us-1 age14lreqrmnfhvg8q6q200hzqnnu369fmcn85jnwwlyfykpszg8qyyskmp5fs
 
 creation_rules:
   - path_regex: ^modules/base/settings/sops/\.secrets\.yaml$
@@ -13,6 +14,7 @@ creation_rules:
           - *wsl-main
           - *lxc-kabu
           - *kvm-aliyun
+          - *kvm-us-1
         pgp:
           - *azurcrystal_pgp
     
@@ -27,13 +29,25 @@ creation_rules:
     key_groups:
       - age:
           - *wsl-main
+        pgp:
+          - *azurcrystal_pgp
 
   - path_regex: ^profiles/hosts/lxc-kabu/\.secrets\.yaml$
     key_groups:
       - age:
           - *lxc-kabu
+        pgp:
+          - *azurcrystal_pgp
 
   - path_regex: ^profiles/hosts/kvm-aliyun/\.secrets\.yaml$
     key_groups:
       - age:
           - *kvm-aliyun
+        pgp:
+          - *azurcrystal_pgp
+  - path_regex: ^profiles/hosts/kvm-us-1/\.secrets\.yaml$
+    key_groups:
+      - age:
+          - *kvm-us-1
+        pgp:
+          - *azurcrystal_pgp
