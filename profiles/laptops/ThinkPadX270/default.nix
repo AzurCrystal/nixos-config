@@ -37,10 +37,10 @@
     secrets = {
       "u2f_keys" = {
         sopsFile = ./.secrets.yaml;
-      }; 
+      };
     };
   };
 
   users.users.azurcrystal.shell = lib.mkForce pkgs.zsh;
-  security.pam.u2f.authFile = config.sops.secrets."u2f_keys".path; 
+  security.pam.u2f.authFile = config.sops.secrets."u2f_keys".path;
 }

@@ -177,6 +177,6 @@ export WINEPREFIX=$HOME/.local/share/wine-64
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 
-export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+#export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

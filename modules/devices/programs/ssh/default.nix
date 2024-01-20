@@ -1,11 +1,12 @@
 { config, ... }:
 
 let
-  wsl-main_ipAddr = config.sops.placeholder."hosts/wsl-main/ipAddr";
-  lxc-kabu_ipAddr = config.sops.placeholder."hosts/lxc-kabu/ipAddr";
-  lxc-kabu_ipPort = config.sops.placeholder."hosts/lxc-kabu/ipPort";
-  kvm-aliyun_ipAddr = config.sops.placeholder."hosts/kvm-aliyun/ipAddr";
-  kvm-us-1_ipAddr = config.sops.placeholder."hosts/kvm-us-1/ipAddr";
+  ph = config.sops.placeholder;
+  wsl-main_ipAddr = ph."hosts/wsl-main/ipAddr";
+  lxc-kabu_ipAddr = ph."hosts/lxc-kabu/ipAddr";
+  lxc-kabu_ipPort = ph."hosts/lxc-kabu/ipPort";
+  kvm-aliyun_ipAddr = ph."hosts/kvm-aliyun/ipAddr";
+  kvm-us-1_ipAddr = ph."hosts/kvm-us-1/ipAddr";
 in
 {
   config.sops.templates."ssh_config" = {

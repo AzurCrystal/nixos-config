@@ -49,6 +49,7 @@
             ./modules/distbuilds
             ./modules/devices
             ./modules/devices/gui/wayland/sway
+            ./modules/virts/docker
             home-manager.nixosModules.home-manager
             {
               home-manager =
