@@ -20,10 +20,10 @@
     {
       package = null;
       enable = true;
-      config = rec {
+      config = {
         modifier = "Mod4";
         terminal = "alacritty";
-        menu = "rofi -show combi";
+        menu = "rofi -show drun -theme $HOME/.config/rofi/style-launcher.rasi";
         output = {
           "*" = {
             bg = "$HOME/.local/share/background.jpg fill";

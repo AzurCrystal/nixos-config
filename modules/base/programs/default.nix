@@ -1,4 +1,4 @@
-{ pkgs , ... }:
+{ pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -10,5 +10,9 @@
     dig
     tree
     subversion
+    unzip
+    unrar
+    p7zip
+    jq
   ];
 }

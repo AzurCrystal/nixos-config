@@ -1,13 +1,16 @@
+{config, ...}:
+
 {
+  programs.zsh = {
+    enable = false;
+    package = null;
+  };
+
   home.file = {
     zshrc = {
       enable = true;
       source = ./zshrc;
-      target = "/home/azurcrystal/.zshrc";
+      target = "${config.home.homeDirectory}/.zshrc";
     };
-  };
-  programs.zsh = {
-    enable = false;
-    package = null;
   };
 }

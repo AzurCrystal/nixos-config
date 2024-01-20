@@ -11,6 +11,4 @@
     userName = "AzurCrystal";
     userEmail = "azurcrystal@kiyohane.moe";
   };
-
-
 }

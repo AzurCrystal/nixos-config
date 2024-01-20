@@ -25,7 +25,6 @@
           treesit-grammars.with-all-grammars
         ]
       ));
-     
   };
 
   ## TODO FULLY split dependencies into devShells
@@ -41,6 +40,7 @@
     gopls
     vscode-langservers-extracted
     lua-language-server
+    phpactor
   ] ++ (with nodePackages; [
     bash-language-server
     yaml-language-server
