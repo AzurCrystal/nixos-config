@@ -5,6 +5,14 @@
 
   networking.hostName = "kh-laptop"; # Define your hostname.
 
+  nix = {
+    settings = {
+      substituters = [
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
+      ];
+    };
+  };
+
   imports = [
     # specific configuration
     ./hardware.nix
