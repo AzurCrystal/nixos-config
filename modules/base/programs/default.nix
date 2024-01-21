@@ -11,7 +11,7 @@
     tree
     subversion
     unzip
-    unrar
+    #unrar
     p7zip
     jq
   ];

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-obs29, ... }:
 
 let
   # bash script to let dbus know about important env variables and
@@ -90,6 +90,10 @@ in
       swayidle
       swaybg
       wlr-randr
+      obs-studio
+      obs-studio-plugins.wlrobs
+      obs-studio-plugins.obs-vaapi
+      obs-studio-plugins.obs-gstreamer
     ];
   };
 }
