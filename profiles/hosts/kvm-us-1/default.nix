@@ -1,6 +1,8 @@
 { ... }: {
   imports = [
     ./hardware-configuration.nix
+    ./firewall.nix
+    ./webserver.nix
   ];
 
   system.stateVersion = "24.05";
