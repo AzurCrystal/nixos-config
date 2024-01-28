@@ -103,7 +103,6 @@
           { command = "--no-startup-id swaymsg 'workspace ${builtins.elemAt workspaceSymbols 1}; exec firefox'"; }
           { command = "--no-startup-id swaymsg 'workspace ${builtins.elemAt workspaceSymbols 7}; exec netease-cloud-music-gtk4'"; }
           { command = "--no-startup-id swaymsg 'workspace ${builtins.elemAt workspaceSymbols 0} ; exec ${cfg.terminal}'"; }
-          { command = "--no-startup-id input-remapper-control --command autoload"; }
         ];
 
         bars = [{

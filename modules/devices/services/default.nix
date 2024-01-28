@@ -6,6 +6,6 @@
     ./systemd
     ./profile-sync-daemon.nix
     ./power-management.nix
-    ./input-remapper.nix
+    ./keyd.nix
   ];
 }
