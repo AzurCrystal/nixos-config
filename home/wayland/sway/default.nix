@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 {
+  imports = [
+    ./swayidle.nix
+  ];
   wayland.windowManager.sway =
     let
       cfg = config.wayland.windowManager.sway.config;
@@ -18,7 +21,7 @@
       ];
     in
     {
-      package = null;
+      package = null; ## Sway Package is defined on config.programs.sway
       enable = true;
       config = {
         modifier = "Mod4";
@@ -31,7 +34,6 @@
         };
         keybindings =
           let
-
             workspaces = builtins.listToAttrs (map
               (i:
                 {
