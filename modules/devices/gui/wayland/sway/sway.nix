@@ -1,4 +1,4 @@
-{ pkgs, pkgs-obs29, ... }:
+{ pkgs, ... }:
 
 let
   # bash script to let dbus know about important env variables and

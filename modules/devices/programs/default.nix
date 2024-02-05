@@ -17,6 +17,7 @@
     just
     fd
     ripgrep
+    libva-utils
   ];
 
   programs = {
