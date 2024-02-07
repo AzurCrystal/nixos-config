@@ -13,6 +13,14 @@
         DHCP = "yes";
       };
     };
+    enp0s31f6 = {
+      matchConfig = {
+        Name = "enp0s31f6";
+      };
+      networkConfig = {
+        DHCP = "yes";
+      };
+    };
   };
 
   networking = lib.mkForce {
