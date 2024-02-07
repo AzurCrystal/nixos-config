@@ -12,6 +12,7 @@
         "big-parallel"
         "kvm"
       ];
+      protocol = "ssh-ng";
     in
     {
       settings.experimental-features = [ "nix-command" "flakes" ];
@@ -19,13 +20,13 @@
       #settings.max-jobs = 0;
       buildMachines = [
         {
-          inherit sshUser sshKey system supportedFeatures;
+          inherit sshUser sshKey system supportedFeatures protocol;
           hostName = "wsl-main";
           maxJobs = 2;
           speedFactor = 8;
         }
         {
-          inherit sshUser sshKey system supportedFeatures;
+          inherit sshUser sshKey system supportedFeatures protocol;
           hostName = "lxc-kabu";
           maxJobs = 4;
           speedFactor = 9;
