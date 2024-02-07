@@ -90,10 +90,7 @@ in
       swayidle
       swaybg
       wlr-randr
-      obs-studio
-      obs-studio-plugins.wlrobs
-      obs-studio-plugins.obs-vaapi
-      obs-studio-plugins.obs-gstreamer
+
     ];
   };
 }
