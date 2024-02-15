@@ -129,6 +129,22 @@
             ./modules/servers
           ];
         };
+        "lxc-router" = { name, nodes, ... }: {
+            deployment = {
+              tags = [ "lxc" "server" "china" ];
+              targetHost = "lxc-router";
+              targetUser = "azurcrystal";
+            };
+            imports = [
+              "${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
+              sops-nix.nixosModules.sops
+              ./modules/virts/lxc
+              ./profiles/hosts/lxc-router
+              ./modules/users
+              ./modules/users/builder
+              ./modules/servers
+            ];
+          };
       };
     };
 }

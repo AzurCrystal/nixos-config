@@ -1,27 +1,29 @@
 keys:
   - &azurcrystal_pgp AC0D2AF17C37D2CD794292260E6FD23B84E08D57
-  - &azurcrystal_age age10j2wx70mg94r7wwtwx7lgmllhewap2cs5c7w4rj9fh9zqkr4rp9s9k5n7f
+  - &kh-laptop age10j2wx70mg94r7wwtwx7lgmllhewap2cs5c7w4rj9fh9zqkr4rp9s9k5n7f
   - &lxc-kabu age1rz4ygkquevykurq6rlf25mymxcpg688x840cqqyzewqcaakrnf8schj3nw
   - &wsl-main age1sczh8f408gd03v0avz8at3a3772yn3xjsu2ca68w02vqhfkv0f4qslcwwh
   - &kvm-aliyun age15n25artefatpem8cr3vrujh5lv85dxfly5829w8gmfamymxl83fszqxgxs
   - &kvm-us-1 age14lreqrmnfhvg8q6q200hzqnnu369fmcn85jnwwlyfykpszg8qyyskmp5fs
+  - &lxc-router age148prq7fcht7lnnsjp76kctlp2kl9jr67vvfy9tf8yvhtm9y8y3cqv9cz42
 
 creation_rules:
   - path_regex: ^modules/base/settings/sops/\.secrets\.yaml$
     key_groups:
       - age:
-          - *azurcrystal_age
+          - *kh-laptop
           - *wsl-main
           - *lxc-kabu
           - *kvm-aliyun
           - *kvm-us-1
+          - *lxc-router
         pgp:
           - *azurcrystal_pgp
 
   - path_regex: ^profiles/laptops/ThinkPadX270/\.secrets\.yaml$
     key_groups:
       - age:
-          - *azurcrystal_age
+          - *kh-laptop
         pgp:
           - *azurcrystal_pgp
 
@@ -53,9 +55,9 @@ creation_rules:
         pgp:
           - *azurcrystal_pgp
 
-  - path_regex: ^modules/servers/services/xray/\.secrets\.yaml$
+  - path_regex: ^profiles/hosts/lxc-router/\.secrets\.yaml$
     key_groups:
       - age:
-          - *kvm-us-1
+          - *lxc-router
         pgp:
           - *azurcrystal_pgp
