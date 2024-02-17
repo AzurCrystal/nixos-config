@@ -2,18 +2,29 @@
 
 {
   imports = [
-
+    ./services.nix
   ];
   system.stateVersion = "24.05";
+
+  nixpkgs.config.allowUnfree = true;
+
+  nix = {
+    settings = {
+      substituters = [
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
+      ];
+    };
+  };
+
+  services = {
+    resolved = {
+      enable = true;
+    };
+  };
 
   networking = {
     useDHCP = false;
     useNetworkd = true;
-  };
-
-  networking = {
-    hostName = "router-lxc";
-    useHostResolvConf = false;
   };
 
   systemd = {
@@ -30,6 +41,25 @@
           };
         };
       };
+    };
+  };
+
+  networking = {
+    hostName = "router-lxc";
+    useHostResolvConf = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        22
+        80
+        443
+        7892 # AutoBangumi
+        8080 # QBittorrent
+        8123 # HAOS
+      ];
+      allowedUDPPorts = [
+
+      ];
     };
   };
 }
