@@ -8,5 +8,8 @@
 
   networking.firewall.allowedTCPPorts = [ 22 ];
 
+  imports = [
+    ./emacs.nix
+  ];
 }
 
