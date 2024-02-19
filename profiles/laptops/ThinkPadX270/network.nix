@@ -1,24 +1,49 @@
-{ pkgs , lib, ... }:
+{ pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
     iwd
   ];
 
-  systemd.network.networks = {
-    wlan0 = {
-      matchConfig = {
-        Name = "wlan0";
-      };
-      networkConfig = {
-        DHCP = "yes";
+  systemd.network = {
+    netdevs = {
+      bond0 = {
+        netdevConfig = {
+          Name = "bond0";
+          Kind = "bond";
+        };
+        bondConfig = {
+          Mode = "active-backup";
+          PrimaryReselectPolicy = "always";
+          MIIMonitorSec = "1s";
+        };
       };
     };
-    enp0s31f6 = {
-      matchConfig = {
-        Name = "enp0s31f6";
+    networks = {
+      wlan0 = {
+        matchConfig = {
+          Name = "wlan0";
+        };
+        networkConfig = {
+          Bond = "bond0";
+        };
       };
-      networkConfig = {
-        DHCP = "yes";
+      enp0s31f6 = {
+        matchConfig = {
+          Name = "enp0s31f6";
+        };
+        networkConfig = {
+          Bond = "bond0";
+          PrimarySlave = true;
+        };
+      };
+      bond0 = {
+        matchConfig = {
+          Name = "bond0";
+        };
+        networkConfig = {
+          BindCarrier = "enp0s31f6 wlan0";
+          DHCP = "yes";
+        };
       };
     };
   };
