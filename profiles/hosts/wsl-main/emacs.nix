@@ -25,7 +25,7 @@
   services.emacs = {
     enable = true;
     package =
-      with pkgs; ((emacsPackagesFor emacs).emacsWithPackages (
+      with pkgs; ((emacsPackagesFor emacs-pgtk).emacsWithPackages (
         epkgs: with epkgs; [
           vterm
 

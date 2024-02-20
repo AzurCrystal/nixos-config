@@ -75,6 +75,9 @@
         meta = {
           nixpkgs = import inputs.nixpkgs {
             inherit system;
+            overlays = [
+              (import emacs-overlay)
+            ];
           };
           specialArgs = {
             inherit nixpkgs;
@@ -85,6 +88,7 @@
             tags = [ "builder" "china" ];
             targetHost = "wsl-main";
             targetUser = "azurcrystal";
+            allowLocalDeployment = true;
           };
           imports = [
             nixos-wsl.nixosModules.wsl
@@ -139,21 +143,21 @@
           ];
         };
         "lxc-router" = { name, nodes, ... }: {
-            deployment = {
-              tags = [ "lxc" "server" "china" ];
-              targetHost = "lxc-router";
-              targetUser = "azurcrystal";
-            };
-            imports = [
-              "${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
-              sops-nix.nixosModules.sops
-              ./modules/virts/lxc
-              ./profiles/hosts/lxc-router
-              ./modules/users
-              ./modules/users/builder
-              ./modules/servers
-            ];
+          deployment = {
+            tags = [ "lxc" "server" "china" ];
+            targetHost = "lxc-router";
+            targetUser = "azurcrystal";
           };
+          imports = [
+            "${nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
+            sops-nix.nixosModules.sops
+            ./modules/virts/lxc
+            ./profiles/hosts/lxc-router
+            ./modules/users
+            ./modules/users/builder
+            ./modules/servers
+          ];
+        };
       };
     };
 }
