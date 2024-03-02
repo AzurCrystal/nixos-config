@@ -8,6 +8,7 @@
     nil
     ccls
     python3
+    php
     rust-analyzer
     pandoc
     ripgrep

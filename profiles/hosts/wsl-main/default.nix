@@ -9,7 +9,8 @@
   networking.firewall.allowedTCPPorts = [ 22 ];
 
   imports = [
-    ./emacs.nix
+    #./emacs.nix  ## On Windows use vscode-win instead
+    ./containers.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -17,6 +18,10 @@
     pinentry
     pinentry-curses
     colmena
+    sops
+    #FIXME temporaily lsp support
+    nil
+    ripgrep
   ];
 
   programs.gnupg.agent = {
@@ -24,5 +29,8 @@
     enableSSHSupport = true;
   };
 
+  programs.direnv = {
+    enable = true;
+  };
 }
 
