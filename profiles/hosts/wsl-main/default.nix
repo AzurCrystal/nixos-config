@@ -4,7 +4,7 @@
 
   networking.hostName = "wsl-main";
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 
   networking.firewall.allowedTCPPorts = [ 22 ];
 
