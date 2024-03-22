@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ./postgresql.nix
     ./webserver.nix
+    ./container.nix
   ];
   networking.hostName = "kh-aliyun-cn";
   system.stateVersion = "24.05";
