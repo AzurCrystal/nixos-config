@@ -13,6 +13,8 @@
     ./containers.nix
   ];
 
+  time.timeZone = "Asia/Shanghai";
+
   environment.systemPackages = with pkgs; [
     gnupg
     pinentry
