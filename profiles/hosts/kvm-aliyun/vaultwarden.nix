@@ -29,7 +29,7 @@
 
   config.sops.secrets = {
     vaultwardenEnv = {
-      sopsFile = ./.secrets.yaml;
+      sopsFile = ./secrets.yaml;
       owner = "vaultwarden";
       group = "vaultwarden";
       mode = "0440";

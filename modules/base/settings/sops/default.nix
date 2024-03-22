@@ -2,7 +2,7 @@
 
 {
   config.sops = {
-    defaultSopsFile = ./.secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     secrets = {
       "users/azurcrystal/passwd" = { };
       "users/builder/key" = { };

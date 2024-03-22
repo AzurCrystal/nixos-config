@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   ph = config.sops.placeholder;
-  sopsFilePath = ./.secrets.yaml;
+  sopsFilePath = ./secrets.yaml;
 
 in
 {
